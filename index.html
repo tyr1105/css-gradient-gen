@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS 渐变生成器 - 在线CSS Gradient Generator工具</title>
+  <meta name="description" content="免费的在线CSS渐变生成器工具。支持线性、径向、锥形渐变，提供30+预设渐变模板，实时预览，一键导出CSS/SVG/PNG。">
+  <meta name="keywords" content="CSS渐变生成器,gradient generator,线性渐变,径向渐变,锥形渐变,CSS工具,前端开发">
+  <meta name="author" content="tyr1105">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://tyr1105.github.io/css-gradient-gen/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="CSS 渐变生成器 - 在线Gradient工具">
+  <meta property="og:description" content="免费的在线CSS渐变生成器。支持线性、径向、锥形渐变，30+预设模板，实时预览，一键导出。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tyr1105.github.io/css-gradient-gen/">
+  <meta property="og:locale" content="zh_CN">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CSS 渐变生成器">
+  <meta name="twitter:description" content="免费在线CSS渐变生成器工具">
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "CSS 渐变生成器",
+    "url": "https://tyr1105.github.io/css-gradient-gen/",
+    "description": "免费的在线CSS渐变生成器工具，支持线性、径向、锥形渐变。",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "CNY"
+    },
+    "author": {
+      "@type": "Person",
+      "github": "https://github.com/tyr1105"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <header class="header">
+    <div class="header-inner">
+      <h1 class="logo">
+        <span class="logo-icon">🎨</span>
+        CSS 渐变生成器
+      </h1>
+      <div class="header-actions">
+        <button id="btnRandom" class="btn btn-icon" title="随机渐变">🎲 随机</button>
+        <button id="btnReverse" class="btn btn-icon" title="反转颜色">🔄 反转</button>
+        <button id="btnTheme" class="btn btn-icon" title="切换主题">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="editor-layout">
+      <!-- 左侧：预览区 -->
+      <div class="preview-panel">
+        <div class="preview-main">
+          <div id="gradientPreview" class="gradient-preview"></div>
+        </div>
+        <!-- 渐变条 + 色标 -->
+        <div class="gradient-bar-container">
+          <div id="gradientBar" class="gradient-bar">
+            <div id="stopsContainer" class="stops-container"></div>
+          </div>
+          <p class="hint-text">点击渐变条添加色标，右键删除色标</p>
+        </div>
+
+        <!-- 元素预览 -->
+        <div class="element-previews">
+          <h3 class="section-title">元素预览</h3>
+          <div class="preview-grid">
+            <div class="preview-item">
+              <div id="previewText" class="preview-text">渐变文字</div>
+            </div>
+            <div class="preview-item">
+              <button id="previewButton" class="preview-button">渐变按钮</button>
+            </div>
+            <div class="preview-item">
+              <div id="previewCard" class="preview-card">
+                <div class="card-title">卡片标题</div>
+                <div class="card-text">这是一个渐变卡片预览效果</div>
+              </div>
+            </div>
+            <div class="preview-item">
+              <div id="previewHero" class="preview-hero">
+                <div class="hero-text">Hero 区域</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右侧：控制面板 -->
+      <div class="control-panel">
+        <!-- 渐变类型 -->
+        <div class="control-section">
+          <h3 class="section-title">渐变类型</h3>
+          <div class="type-buttons">
+            <button class="type-btn active" data-type="linear">线性渐变</button>
+            <button class="type-btn" data-type="radial">径向渐变</button>
+            <button class="type-btn" data-type="conic">锥形渐变</button>
+          </div>
+        </div>
+
+        <!-- 角度控制 -->
+        <div id="angleSection" class="control-section">
+          <h3 class="section-title">角度 <span id="angleValue">90</span>°</h3>
+          <div class="angle-control">
+            <div class="angle-dial">
+              <div id="angleIndicator" class="angle-indicator"></div>
+              <input type="range" id="angleSlider" min="0" max="360" value="90" class="angle-slider">
+            </div>
+            <div class="direction-buttons">
+              <button class="dir-btn" data-angle="0" title="上">↑</button>
+              <button class="dir-btn" data-angle="45" title="右上">↗</button>
+              <button class="dir-btn" data-angle="90" title="右">→</button>
+              <button class="dir-btn" data-angle="135" title="右下">↘</button>
+              <button class="dir-btn" data-angle="180" title="下">↓</button>
+              <button class="dir-btn" data-angle="225" title="左下">↙</button>
+              <button class="dir-btn" data-angle="270" title="左">←</button>
+              <button class="dir-btn" data-angle="315" title="左上">↖</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 径向位置控制 -->
+        <div id="radialSection" class="control-section hidden">
+          <h3 class="section-title">径向位置</h3>
+          <div class="radial-controls">
+            <label>X: <input type="range" id="radialX" min="0" max="100" value="50"> <span id="radialXVal">50</span>%</label>
+            <label>Y: <input type="range" id="radialY" min="0" max="100" value="50"> <span id="radialYVal">50</span>%</label>
+            <div class="shape-buttons">
+              <button class="shape-btn active" data-shape="circle">圆形</button>
+              <button class="shape-btn" data-shape="ellipse">椭圆</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 锥形起始角度 -->
+        <div id="conicSection" class="control-section hidden">
+          <h3 class="section-title">起始角度 <span id="conicAngleValue">0</span>°</h3>
+          <input type="range" id="conicAngle" min="0" max="360" value="0">
+        </div>
+
+        <!-- 色标编辑 -->
+        <div class="control-section">
+          <h3 class="section-title">色标编辑</h3>
+          <div id="stopEditors" class="stop-editors"></div>
+          <button id="addStop" class="btn btn-add">+ 添加色标</button>
+        </div>
+
+        <!-- 预设调色板 -->
+        <div class="control-section">
+          <h3 class="section-title">调色板</h3>
+          <div class="palette-tabs">
+            <button class="palette-tab active" data-palette="pastel">柔和</button>
+            <button class="palette-tab" data-palette="vibrant">鲜艳</button>
+            <button class="palette-tab" data-palette="warm">暖色</button>
+            <button class="palette-tab" data-palette="cool">冷色</button>
+            <button class="palette-tab" data-palette="earth">大地</button>
+            <button class="palette-tab" data-palette="neon">霓虹</button>
+          </div>
+          <div id="paletteColors" class="palette-colors"></div>
+        </div>
+
+        <!-- 预设渐变 -->
+        <div class="control-section">
+          <h3 class="section-title">预设渐变</h3>
+          <div class="preset-tabs">
+            <button class="preset-tab active" data-category="sunset">日落</button>
+            <button class="preset-tab" data-category="ocean">海洋</button>
+            <button class="preset-tab" data-category="forest">森林</button>
+            <button class="preset-tab" data-category="aurora">极光</button>
+            <button class="preset-tab" data-category="candy">糖果</button>
+            <button class="preset-tab" data-category="business">商务</button>
+          </div>
+          <div id="presetGrid" class="preset-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 代码输出 -->
+    <div class="code-output">
+      <h3 class="section-title">代码输出</h3>
+      <div class="code-tabs">
+        <button class="code-tab active" data-code="css">CSS</button>
+        <button class="code-tab" data-code="tailwind">Tailwind</button>
+        <button class="code-tab" data-code="svg">SVG</button>
+      </div>
+      <div class="code-blocks">
+        <div id="codeCSS" class="code-block">
+          <pre><code id="cssCode"></code></pre>
+          <button class="btn-copy" data-target="cssCode">📋 复制</button>
+        </div>
+        <div id="codeTailwind" class="code-block hidden">
+          <pre><code id="tailwindCode"></code></pre>
+          <button class="btn-copy" data-target="tailwindCode">📋 复制</button>
+        </div>
+        <div id="codeSVG" class="code-block hidden">
+          <pre><code id="svgCode"></code></pre>
+          <button class="btn-copy" data-target="svgCode">📋 复制</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 导出按钮 -->
+    <div class="export-bar">
+      <button id="exportCSS" class="btn btn-export">📋 复制 CSS</button>
+      <button id="exportPNG" class="btn btn-export">🖼️ 下载 PNG</button>
+      <button id="exportSVG" class="btn btn-export">📐 下载 SVG</button>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>CSS 渐变生成器 © 2026 <a href="https://github.com/tyr1105" target="_blank">tyr1105</a> | 
+      <a href="https://tyr1105.github.io/css-gradient-gen/" target="_blank">GitHub Pages</a></p>
+  </footer>
+
+  <!-- 隐藏 canvas 用于导出 -->
+  <canvas id="exportCanvas" width="1920" height="1080" style="display:none;"></canvas>
+
+  <script src="app.js"></script>
+</body>
+</html>
